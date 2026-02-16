@@ -1,106 +1,176 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import Head from 'next/head'
+import { ArrowRight, ShieldAlert, CheckCircle } from 'lucide-react'
+
+// --- CONTENT DATA ---
+const RESULTS_DATA: Record<string, any> = {
+  'A': {
+    title: "The Hijacked Protector",
+    hook: "You aren't anxious. You are under surveillance.",
+    diagnosis: "Your 'Watchdog' (Amygdala) has staged a coup. It treats every email, weird look, and delay as a life-or-death threat. You are burning 90% of your fuel fighting wars that haven't happened yet.",
+    fix: "Chapter 07 (The Watchdog) contains the code to force a system reset."
+  },
+  'B': {
+    title: "The Shadow Boxer",
+    hook: "You are fighting enemies that don't exist anymore.",
+    diagnosis: "You are running a 'Dead Loop.' You replay old arguments and past mistakes because your system finds comfort in the pain. You are addicted to the aesthetic of the scar.",
+    fix: "Chapter 11 (The Vault) shows you how to cut the wire to the past."
+  },
+  'C': {
+    title: "The Ghost Passenger",
+    hook: "You are awake, but no one is driving.",
+    diagnosis: "Your system is on 95% Autopilot. You’ve sedated your ambition with cheap dopamine (scrolling, snacking, waiting). You are watching your life happen to someone else.",
+    fix: "Chapter 01 (Autopilot) is your wake-up call protocol."
+  },
+  'D': {
+    title: "The Unshielded Receiver",
+    hook: "You are leaking energy to everyone around you.",
+    diagnosis: "You have no Firewall. You absorb the stress, anger, and 'vibe' of every room you walk into. You are exhausted because you are processing other people's data.",
+    fix: "Chapter 13 (The Shield) teaches you how to close the ports."
+  }
+};
 
 export default function ResultsPage() {
   const router = useRouter()
-  const [result, setResult] = useState<any>(null)
+  const [resultKey, setResultKey] = useState<string | null>(null)
+  const [step, setStep] = useState(1) // Controls the "Story" flow
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (router.query.data) {
-      try {
-        const data = JSON.parse(decodeURIComponent(router.query.data as string))
-        setResult(data)
-      } catch (error) {
-        console.error('Failed to parse result:', error)
-      }
+    if (router.query.type) {
+      setResultKey(router.query.type as string);
+      setLoading(false);
     }
   }, [router.query])
 
-  if (!result) {
+  if (loading || !resultKey || !RESULTS_DATA[resultKey]) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-purple-500 font-sans">LOADING DATA...</div>;
+  }
+
+  const content = RESULTS_DATA[resultKey];
+
+  // --- STEP 1: THE HOOK ---
+  if (step === 1) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-12">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="bg-white rounded-2xl shadow-xl p-8 text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading your results...</p>
+      <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col justify-between p-6 pb-12 animate-in fade-in duration-700">
+        <div className="mt-12 text-center space-y-6">
+          {/* URGENCY: Red Alert */}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-900/20 border border-red-600 text-red-500 text-xs font-bold tracking-widest uppercase animate-pulse">
+            <ShieldAlert size={14} /> Critical Alert
           </div>
+          <h1 className="text-4xl font-bold text-white leading-tight">
+            We found the <span className="text-red-600 drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">Glitch</span>.
+          </h1>
+          <p className="text-xl text-gray-400">
+            The analysis is finished. Your answers revealed a specific pattern that is draining your potential.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          <p className="text-center text-sm text-gray-500 uppercase tracking-widest font-mono">Do you want to see it?</p>
+          <button 
+            onClick={() => setStep(2)}
+            className="w-full py-5 bg-white text-black text-xl font-bold rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:scale-[1.02] transition-transform active:scale-95"
+          >
+            REVEAL MY RESULT
+          </button>
         </div>
       </div>
     )
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-12">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-          Your Personality Analysis
+  // --- STEP 2: THE IDENTITY ---
+  if (step === 2) {
+    return (
+      <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col justify-center p-6 text-center animate-in slide-in-from-right duration-500">
+        <div className="mb-8">
+          <span className="text-gray-500 text-xs font-bold tracking-[0.3em] uppercase font-mono">ARCHETYPE IDENTIFIED</span>
+        </div>
+        
+        <h1 className="text-5xl font-black text-white uppercase leading-none mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500">
+          {content.title}
         </h1>
         
-        <div className="bg-white rounded-2xl shadow-xl p-8 mb-8">
-          <div className="text-center mb-8">
-            <div className="inline-block bg-purple-100 text-purple-800 px-6 py-3 rounded-full text-xl font-bold mb-4">
-              {result.personality_type || 'Your Personality Type'}
-            </div>
-            <p className="text-gray-700 text-lg">
-              {result.analysis || 'Personalized analysis based on your answers.'}
+        {/* Highlight replaced with Purple */}
+        <p className="text-xl text-purple-400 font-medium mb-12 border-l-2 border-purple-500 pl-4 text-left mx-auto max-w-sm">
+          "{content.hook}"
+        </p>
+
+        <button 
+          onClick={() => setStep(3)}
+          className="w-full py-5 bg-purple-600 text-white text-lg font-bold rounded-xl shadow-[0_0_25px_rgba(147,51,234,0.4)] hover:brightness-110 transition-all active:scale-95 flex items-center justify-center gap-2"
+        >
+          WHY AM I LIKE THIS? <ArrowRight size={20} />
+        </button>
+      </div>
+    )
+  }
+
+  // --- STEP 3: THE DIAGNOSIS ---
+  if (step === 3) {
+    return (
+      <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col justify-between p-6 pb-12 animate-in slide-in-from-bottom duration-500">
+        <div className="mt-8">
+          <h2 className="text-3xl font-bold text-white mb-6">The Diagnosis</h2>
+          <div className="bg-gray-900/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
+            <p className="text-lg text-gray-200 leading-relaxed">
+              {content.diagnosis}
             </p>
           </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-green-50 p-6 rounded-xl">
-              <h3 className="text-xl font-semibold text-green-800 mb-3">✨ Your Strengths</h3>
-              <ul className="space-y-2">
-                {result.strengths?.map((strength: string, index: number) => (
-                  <li key={index} className="flex items-start">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span className="text-gray-700">{strength}</span>
-                  </li>
-                )) || (
-                  <li className="text-gray-600">Analysis of strengths</li>
-                )}
-              </ul>
-            </div>
-
-            <div className="bg-blue-50 p-6 rounded-xl">
-              <h3 className="text-xl font-semibold text-blue-800 mb-3">Growth Area</h3>
-              <p className="text-gray-700">
-                {result.growth_area || 'Area for personal development based on your patterns.'}
-              </p>
-            </div>
+          {/* URGENCY: Red Line */}
+          <div className="mt-8 flex items-center gap-4 opacity-75">
+            <div className="h-12 w-1 bg-red-600 rounded-full shadow-[0_0_10px_#dc2626]"></div>
+            <p className="text-sm text-gray-400 italic">
+              "This isn't a personality trait. It's a code error."
+            </p>
           </div>
         </div>
 
-        {/* Upsell Section */}
-        <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl p-8 text-white">
-          <h2 className="text-3xl font-bold mb-4">Want to go deeper?</h2>
-          <p className="text-purple-100 mb-6">
-            Get your complete personalized report with detailed analysis and actionable insights.
+        <button 
+          onClick={() => setStep(4)}
+          className="w-full py-5 bg-white text-black text-xl font-bold rounded-xl mt-8 shadow-lg active:scale-95 transition-transform"
+        >
+          HOW DO I FIX IT?
+        </button>
+      </div>
+    )
+  }
+
+  // --- STEP 4: THE SOLUTION (FINAL) ---
+  return (
+    <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col p-6 animate-in fade-in duration-700">
+      <div className="flex-1 flex flex-col items-center pt-8 text-center">
+        <div className="w-16 h-16 bg-purple-900/20 rounded-full flex items-center justify-center text-purple-500 mb-6 border border-purple-500/30">
+          <CheckCircle size={32} />
+        </div>
+        
+        <h2 className="text-3xl font-bold text-white mb-4">Manual Override Available</h2>
+        <p className="text-gray-400 mb-8 max-w-sm">
+          You don't need therapy. You need a system update. The specific protocol for your glitch is ready.
+        </p>
+
+        {/* Manual Card - Purple Theme */}
+        <div className="w-full bg-[#111] border border-gray-800 rounded-2xl p-6 mb-8 text-left relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1 h-full bg-purple-600"></div>
+          <h3 className="text-white font-bold text-lg mb-1">System Breach Manual</h3>
+          <p className="text-purple-400 text-sm mb-4 font-mono">v4.0 // Digital Download</p>
+          <p className="text-gray-300 text-sm border-t border-gray-800 pt-3 mt-3">
+            Contains: <span className="text-white font-bold">{content.fix}</span>
           </p>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-              <h3 className="text-xl font-bold mb-2">Complete eBook</h3>
-              <p className="text-purple-200 mb-4">Detailed guide to master your psychology</p>
-              <button className="w-full bg-white text-purple-600 py-3 rounded-lg font-semibold hover:bg-purple-50 transition">
-                Get eBook - $7
-              </button>
-            </div>
-            
-            <div className="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
-              <h3 className="text-xl font-bold mb-2">Deep Analysis Test</h3>
-              <p className="text-purple-200 mb-4">Personalized 50-question deep dive</p>
-              <button className="w-full bg-white text-purple-600 py-3 rounded-lg font-semibold hover:bg-purple-50 transition">
-                Deep Test - $27
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <div className="text-center mt-8">
-          <a href="/" className="text-purple-600 hover:underline">
-            ← Back to home
-          </a>
-        </div>
+      <div className="sticky bottom-0 bg-gradient-to-t from-black via-black to-transparent pt-10 pb-6">
+        <a 
+          href="https://gumroad.com/l/YOUR_LINK" 
+          className="block w-full py-5 bg-purple-600 text-white text-center text-xl font-black uppercase rounded-xl shadow-[0_0_30px_rgba(147,51,234,0.4)] hover:scale-[1.02] transition-transform active:scale-95"
+        >
+          Download Protocol ($7.50)
+        </a>
+        <p className="text-center text-gray-600 text-xs mt-4">
+          Instant Access • Secure Payment
+        </p>
       </div>
     </div>
   )
