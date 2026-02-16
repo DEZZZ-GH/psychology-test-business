@@ -18,10 +18,10 @@ const questions: Question[] = [
     title: "The Morning Boot-Up",
     text: "You wake up. Before your eyes even open, what is the first \"program\" that boots up in your chest?",
     options: [
-      { type: 'A', text: "A sharp, electric jolt—my Watchdog (Amygdala/Anxiety) is already scanning the room for things I’ve forgotten or threats I haven't seen yet." },
-      { type: 'B', text: "A heavy, familiar fog—I’m already replaying a \"dead file\" from a conversation or mistake that happened years ago in The Vault (Unconscious/Past Trauma)." },
-      { type: 'C', text: "Absolute static—I feel nothing. I’m just a passenger waiting for the Autopilot (Subconscious/Habit) to take me through another 95% mindless day." },
-      { type: 'D', text: "A vibration that isn't mine—my Social Wi-Fi (Mirror Neurons/Empathy) is already wondering who is mad at me or whose \"vibe\" I have to fix today." }
+      { type: 'A', text: "A sharp, electric jolt, my Watchdog (Amygdala/Anxiety) is already scanning the room for things I’ve forgotten or threats I haven't seen yet." },
+      { type: 'B', text: "A heavy, familiar fog, I’m already replaying a \"dead file\" from a conversation or mistake that happened years ago in The Vault (Unconscious/Past Trauma)." },
+      { type: 'C', text: "Absolute static, I feel nothing. I’m just a passenger waiting for the Autopilot (Subconscious/Habit) to take me through another 95% mindless day." },
+      { type: 'D', text: "A vibration that isn't mine, my Social Wi-Fi (Mirror Neurons/Empathy) is already wondering who is mad at me or whose \"vibe\" I have to fix today." }
     ]
   },
   {
@@ -85,7 +85,7 @@ const questions: Question[] = [
     text: "Look at your current output. You have the hardware to build an empire, but your energy is leaking. Where is the \"Power\" actually going?",
     options: [
       { type: 'A', text: "Cooling the Engine. I spend 90% of my energy just trying to keep my Watchdog (Anxiety) calm so I don't have a total system meltdown." },
-      { type: 'B', text: "Running Background Apps. My processing power is being sucked dry by The Vault (Past Echoes)—I’m mentally \"rendering\" old memories instead of new results." },
+      { type: 'B', text: "Running Background Apps. My processing power is being sucked dry by The Vault (Past Echoes), I’m mentally \"rendering\" old memories instead of new results." },
       { type: 'C', text: "Idle Mode. I’m not actually using my power. My Autopilot (Habit) has me stuck in a low-energy loop of \"scroll, eat, sleep, repeat.\"" },
       { type: 'D', text: "External Charging. I am plugged into everyone else’s problems. I am a battery for people who give me nothing but Social Wi-Fi (Emotional Drain) in return." }
     ]

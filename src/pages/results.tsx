@@ -1,33 +1,48 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Head from 'next/head'
-import { ArrowRight, ShieldAlert, CheckCircle } from 'lucide-react'
+import { ArrowRight, ShieldAlert, CheckCircle, Zap, Flame, Lock } from 'lucide-react'
 
 // --- CONTENT DATA ---
 const RESULTS_DATA: Record<string, any> = {
   'A': {
     title: "The Hijacked Protector",
-    hook: "You aren't anxious. You are under surveillance.",
-    diagnosis: "Your 'Watchdog' (Amygdala) has staged a coup. It treats every email, weird look, and delay as a life-or-death threat. You are burning 90% of your fuel fighting wars that haven't happened yet.",
-    fix: "Chapter 07 (The Watchdog) contains the code to force a system reset."
+    diagnosis: "Your Watchdog (Amygdala) has staged a full coup. It has locked your CEO (Prefrontal Cortex) in the basement. You aren't \"careful\"—you are a high-performance machine being driven by a security guard who is afraid of shadows.",
+    insight: "Right now, you are burning 90% of your daily energy just trying to stay \"safe.\" This is why you feel exhausted even when you haven't done anything. You are red-lining your engine while the parking brake is on.",
+    override: [
+      "Chapter 07 (The Watchdog): I show you exactly how your amygdala hijacks your logic and how to \"debug\" the fear response in real-time.",
+      "Chapter 10 (Tactical Command): You will learn the \"Command Codes\" to force your heart rate down and put the CEO back in charge."
+    ],
+    blueprint: "If you don't reset this hardware, you will spend your whole life hiding in the \"Safe Zone\" while others build the world you were supposed to lead."
   },
   'B': {
     title: "The Shadow Boxer",
-    hook: "You are fighting enemies that don't exist anymore.",
-    diagnosis: "You are running a 'Dead Loop.' You replay old arguments and past mistakes because your system finds comfort in the pain. You are addicted to the aesthetic of the scar.",
-    fix: "Chapter 11 (The Vault) shows you how to cut the wire to the past."
+    diagnosis: "You are a Script Puppet. Your Vault (Unconscious) is leaking old trauma into your daily code. You are \"addicted to the aesthetic of the scar,\" replaying dead loops from years ago because they feel safer than an unknown future.",
+    insight: "You aren't \"stuck\"; you are just re-rendering old files. Your brain is trying to protect you from a 2018 threat that no longer exists. You are arguing with ghosts and losing.",
+    override: [
+      "Chapter 11 (The Vault): We go deep into the basement to identify the \"poisonous beliefs\" and \"shadows\" that are currently acting as your operating instructions.",
+      "Chapter 18 (Momentum): I show you how to pave new \"Neural Highways\" so thick that the \"Old You\" becomes a ghost."
+    ],
+    blueprint: "You can keep romanticizing your pain, or you can use the Dark Fuel protocol in Chapter 20 to turn that trauma into a launchpad."
   },
   'C': {
     title: "The Ghost Passenger",
-    hook: "You are awake, but no one is driving.",
-    diagnosis: "Your system is on 95% Autopilot. You’ve sedated your ambition with cheap dopamine (scrolling, snacking, waiting). You are watching your life happen to someone else.",
-    fix: "Chapter 01 (Autopilot) is your wake-up call protocol."
+    diagnosis: "You are 95% Autopilot. You are effectively a \"Ghost\" in your own machine. Your Internal Lab is so fried from cheap dopamine hits (scrolling, procrastination, \"moods\") that you’ve lost the \"Hunt\" instinct.",
+    insight: "You are a passenger watching your own life go by. Your basal ganglia handles your habits, and right now, those habits were installed by people who don't care about your success. You are living on 2005 programming in a 2026 world.",
+    override: [
+      "Chapter 01 (The Architect): We audit the \"Ghost in the Machine\" and identify exactly where your Autopilot is taking you.",
+      "Chapter 08 (The Lab): You will learn how to hack your neurochemistry—Dopamine, Serotonin, and Cortisol—to find the \"On Switch\" for your drive."
+    ],
+    blueprint: "If you don't take the wheel back now, you’ll wake up at 50 and realize you never actually showed up for your own life."
   },
   'D': {
     title: "The Unshielded Receiver",
-    hook: "You are leaking energy to everyone around you.",
-    diagnosis: "You have no Firewall. You absorb the stress, anger, and 'vibe' of every room you walk into. You are exhausted because you are processing other people's data.",
-    fix: "Chapter 13 (The Shield) teaches you how to close the ports."
+    diagnosis: "Your Social Wi-Fi (Mirror Neurons) has no Firewall. You are suffering from Emotional Wi-Fi contagion. You are a powerhouse being drained by vampires because you don't know where \"You\" end and \"They\" begin.",
+    insight: "You have spent so long absorbing the \"Low-Battery\" energy of mediocre people that your own system is crashing. You are solving problems that don't belong to you while your own empire sits in ruins.",
+    override: [
+      "Chapter 12 (Emotional Wi-Fi): Learn the science of how you \"catch\" the emotions of others and how to disconnect the signal.",
+      "Chapter 13 (The Shield): I show you how to build the \"Defensive Shield\"—the psychological boundaries required to move in silence and build in private."
+    ],
+    blueprint: "Stop being a battery for people who give you nothing. Install the firewall, shut the world out, and start building your own mission."
   }
 };
 
@@ -55,7 +70,6 @@ export default function ResultsPage() {
     return (
       <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col justify-between p-6 pb-12 animate-in fade-in duration-700">
         <div className="mt-12 text-center space-y-6">
-          {/* URGENCY: Red Alert */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-900/20 border border-red-600 text-red-500 text-xs font-bold tracking-widest uppercase animate-pulse">
             <ShieldAlert size={14} /> Critical Alert
           </div>
@@ -80,49 +94,60 @@ export default function ResultsPage() {
     )
   }
 
-  // --- STEP 2: THE IDENTITY ---
+  // --- STEP 2: THE DIAGNOSIS ---
   if (step === 2) {
     return (
       <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col justify-center p-6 text-center animate-in slide-in-from-right duration-500">
-        <div className="mb-8">
+        <div className="mb-6">
           <span className="text-gray-500 text-xs font-bold tracking-[0.3em] uppercase font-mono">ARCHETYPE IDENTIFIED</span>
         </div>
         
-        <h1 className="text-5xl font-black text-white uppercase leading-none mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500">
+        <h1 className="text-4xl md:text-5xl font-black text-white uppercase leading-none mb-6 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-400">
           {content.title}
         </h1>
         
-        {/* Highlight replaced with Purple */}
-        <p className="text-xl text-purple-400 font-medium mb-12 border-l-2 border-purple-500 pl-4 text-left mx-auto max-w-sm">
-          "{content.hook}"
-        </p>
+        <div className="bg-gray-900/30 border-l-2 border-red-500 p-6 text-left mb-8 rounded-r-xl backdrop-blur-sm">
+            <h3 className="text-red-500 text-xs font-bold uppercase tracking-widest mb-2 flex items-center gap-2">
+                <Flame size={12} /> The Diagnosis
+            </h3>
+            <p className="text-lg text-gray-200 font-medium leading-relaxed">
+                "{content.diagnosis}"
+            </p>
+        </div>
 
         <button 
           onClick={() => setStep(3)}
           className="w-full py-5 bg-purple-600 text-white text-lg font-bold rounded-xl shadow-[0_0_25px_rgba(147,51,234,0.4)] hover:brightness-110 transition-all active:scale-95 flex items-center justify-center gap-2"
         >
-          WHY AM I LIKE THIS? <ArrowRight size={20} />
+          GO DEEPER <ArrowRight size={20} />
         </button>
       </div>
     )
   }
 
-  // --- STEP 3: THE DIAGNOSIS ---
+  // --- STEP 3: THE INSIGHT ---
   if (step === 3) {
     return (
       <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col justify-between p-6 pb-12 animate-in slide-in-from-bottom duration-500">
         <div className="mt-8">
-          <h2 className="text-3xl font-bold text-white mb-6">The Diagnosis</h2>
+            <div className="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full bg-purple-900/20 border border-purple-500 text-purple-400 text-xs font-bold tracking-widest uppercase">
+                <Zap size={14} /> System Insight
+            </div>
+            
+          <h2 className="text-3xl font-bold text-white mb-6 leading-tight">
+            Why you feel <span className="text-purple-500">exhausted</span>.
+          </h2>
+          
           <div className="bg-gray-900/50 p-6 rounded-2xl border border-gray-800 backdrop-blur-sm">
             <p className="text-lg text-gray-200 leading-relaxed">
-              {content.diagnosis}
+              {content.insight}
             </p>
           </div>
-          {/* URGENCY: Red Line */}
-          <div className="mt-8 flex items-center gap-4 opacity-75">
-            <div className="h-12 w-1 bg-red-600 rounded-full shadow-[0_0_10px_#dc2626]"></div>
+          
+          <div className="mt-8 flex items-center gap-4 opacity-60">
+            <div className="h-12 w-1 bg-purple-500 rounded-full"></div>
             <p className="text-sm text-gray-400 italic">
-              "This isn't a personality trait. It's a code error."
+              "This is a hardware glitch, not a character flaw."
             </p>
           </div>
         </div>
@@ -137,39 +162,52 @@ export default function ResultsPage() {
     )
   }
 
-  // --- STEP 4: THE SOLUTION (FINAL) ---
+  // --- STEP 4: THE FIX (MANUAL OVERRIDE) ---
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col p-6 animate-in fade-in duration-700">
-      <div className="flex-1 flex flex-col items-center pt-8 text-center">
-        <div className="w-16 h-16 bg-purple-900/20 rounded-full flex items-center justify-center text-purple-500 mb-6 border border-purple-500/30">
-          <CheckCircle size={32} />
-        </div>
+      <div className="flex-1 flex flex-col pt-4">
         
-        <h2 className="text-3xl font-bold text-white mb-4">Manual Override Available</h2>
-        <p className="text-gray-400 mb-8 max-w-sm">
-          You don't need therapy. You need a system update. The specific protocol for your glitch is ready.
-        </p>
+        <div className="text-center mb-6">
+            <div className="inline-flex items-center justify-center w-12 h-12 bg-green-500/10 rounded-full text-green-500 mb-4 border border-green-500/20">
+                <CheckCircle size={24} />
+            </div>
+            <h2 className="text-2xl font-bold text-white">Manual Override Available</h2>
+        </div>
 
-        {/* Manual Card - Purple Theme */}
-        <div className="w-full bg-[#111] border border-gray-800 rounded-2xl p-6 mb-8 text-left relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-1 h-full bg-purple-600"></div>
-          <h3 className="text-white font-bold text-lg mb-1">System Breach Manual</h3>
-          <p className="text-purple-400 text-sm mb-4 font-mono">v4.0 // Digital Download</p>
-          <p className="text-gray-300 text-sm border-t border-gray-800 pt-3 mt-3">
-            Contains: <span className="text-white font-bold">{content.fix}</span>
-          </p>
+        {/* The Manual Override Section */}
+        <div className="space-y-4 mb-6">
+            {content.override.map((item: string, idx: number) => (
+                <div key={idx} className="bg-[#111] border border-gray-800 p-4 rounded-xl flex gap-4 items-start">
+                    <div className="mt-1 min-w-[20px] text-purple-500">
+                        <Lock size={20} />
+                    </div>
+                    <p className="text-sm text-gray-300 leading-relaxed">
+                        <span className="text-white font-bold block mb-1">
+                            {item.split(':')[0]}
+                        </span>
+                        {item.split(':')[1]}
+                    </p>
+                </div>
+            ))}
+        </div>
+
+        {/* The Blueprint (Promise) */}
+        <div className="bg-purple-900/10 border border-purple-500/30 p-4 rounded-xl mb-8">
+            <p className="text-purple-300 text-sm font-medium italic text-center">
+                "{content.blueprint}"
+            </p>
         </div>
       </div>
 
-      <div className="sticky bottom-0 bg-gradient-to-t from-black via-black to-transparent pt-10 pb-6">
-        <a 
-          href="https://gumroad.com/l/YOUR_LINK" 
-          className="block w-full py-5 bg-purple-600 text-white text-center text-xl font-black uppercase rounded-xl shadow-[0_0_30px_rgba(147,51,234,0.4)] hover:scale-[1.02] transition-transform active:scale-95"
-        >
-          Download Protocol ($7.50)
-        </a>
-        <p className="text-center text-gray-600 text-xs mt-4">
-          Instant Access • Secure Payment
+      <div className="sticky bottom-0 bg-gradient-to-t from-black via-black to-transparent pt-4 pb-6">
+        <button 
+  onClick={() => router.push('/manual')} 
+  className="block w-full py-5 bg-purple-600 text-white text-center text-xl font-black uppercase rounded-xl shadow-[0_0_30px_rgba(147,51,234,0.4)] hover:scale-[1.02] transition-transform active:scale-95"
+>
+  INITIATE OVERRIDE SEQUENCE
+</button>
+        <p className="text-center text-gray-500 text-xs mt-3">
+          Instant Digital Access • Secure Payment
         </p>
       </div>
     </div>
