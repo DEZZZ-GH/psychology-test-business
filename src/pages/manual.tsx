@@ -8,27 +8,38 @@ const GUMROAD_URL = "https://gumroad.com/l/YOUR_PRODUCT_SLUG"; // 🔴 REPLACE T
 const THEME_COLOR = "#9333ea"; // Purple-600
 
 // --- SLIDE DATA ---
-const SLIDES = [
+  const SLIDES = [
+  // --- NEW SLIDE 0: COVER ---
+  {
+    id: 0,
+    phase: "INITIALIZING SYSTEM...",
+    title: "SYSTEM BREACH",
+    subtitle: "v4.0 // Internal Architect’s Manual",
+    icon: <img src="/ebook-cover.png" alt="Cover" className="w-56 h-auto shadow-2xl rounded-lg border border-purple-500/50" />,
+    content: "",
+    chapterInfo: "TAP TO DECRYPT SPECIFICATIONS"
+  },
+  // --- NEW SLIDE 1: SPECS ---
   {
     id: 1,
-    phase: "TACTICAL OVERVIEW",
-    title: "SYSTEM BREACH",
-    subtitle: "The Internal Architect’s Manual",
-    icon: <Lock size={64} />,
-    content: "This isn't a book. It’s a 54-page hardware override for the 95% of your life currently running on Autopilot.",
-    chapterInfo: "v4.0 // 54 PAGES // PDF"
+    phase: "SYSTEM SPECIFICATIONS",
+    title: "THE BLUEPRINT",
+    subtitle: "High-Fidelity Manual",
+    icon: <Lock size={64} className="text-purple-500" />,
+    content: "• 20-Chapter Systems Manual \n• 3 Seven-Day Field Tests: Biological, Strategic, and Tactical Audits\n• Data-Backed Architecture: Grounded in Neurobiology & Case Studies",
+    chapterInfo: "LOADED // 100% FUNCTIONAL"
   },
   {
-    id: 2,
+    id: 3,
     phase: "PHASE 1 & 2: NEUROCHEMICAL COMMAND",
     title: "HARDWARE RESET",
     subtitle: "Chapters 01 - 10",
     icon: <Brain size={64} />,
-    content: "Stop fighting your 'moods.' Learn to hack the internal lab (Dopamine/Cortisol) to force the machine into focus. Page 22 holds the 'Tactical Stand-Down' protocol.",
+    content: "Stop fighting your 'moods.' Learn to hack the internal lab (Dopamine/Cortisol) to force the machine into focus. The manual holds the 'Tactical Stand-Down' protocol.",
     chapterInfo: "TARGET: AMYGDALA VS. PREFRONTAL CORTEX"
   },
   {
-    id: 3,
+    id: 4,
     phase: "PHASE 3: DEFENSIVE SHIELDING",
     title: "THE FIREWALL",
     subtitle: "Chapters 11 - 13",
@@ -37,7 +48,7 @@ const SLIDES = [
     chapterInfo: "TARGET: MIRROR NEURONS & BOUNDARIES"
   },
   {
-    id: 4,
+    id: 5,
     phase: "PHASE 4: THE WAR CHEST",
     title: "STRATEGIC CAPITAL",
     subtitle: "Chapters 14 - 17",
@@ -46,7 +57,7 @@ const SLIDES = [
     chapterInfo: "TARGET: ATTENTION SPAN & FINANCIAL LOGIC"
   },
   {
-    id: 5,
+    id: 6,
     phase: "PHASE 5: WAR MODE",
     title: "EXECUTION",
     subtitle: "Chapters 18 - 20",
@@ -55,11 +66,29 @@ const SLIDES = [
     chapterInfo: "TARGET: DARK FUEL & MOMENTUM"
   },
   {
-    id: 6,
+    id: 7,
+    phase: "DEPLOYMENT TOOLS",
+    title: "TRIPLE AUDIT SUITE",
+    subtitle: "7-Day Implementation",
+    icon: <Target size={64} />,
+    content: "Go beyond theory with three high-stakes protocols: The Biological Shield (Immunity Audit), The Strategic Command (Power Audit), and The Tactical Momentum Tracker (Output Audit).",
+    chapterInfo: "v4.0 // BONUS CONTENT"
+  },
+  {
+    id: 8,
+    phase: "RESEARCH LAB",
+    title: "GROUNDED IN BIOLOGY",
+    subtitle: "Data-Driven Architecture",
+    icon: <Brain size={64} />,
+    content: "This isn't 'motivation.' This system is built on integrated research and case studies from world-renowned neuroscientists and behavioral psychologists. High-fidelity data for high-performance minds.",
+    chapterInfo: "v4.0 // SCIENTIFIC AUDIT"
+  },
+  {
+    id: 9,
     phase: "FINAL OVERRIDE",
     title: "THE LINE IN THE SAND",
     subtitle: "System Activation Required",
-    icon: <Target size={64} />,
+    icon: <img src="/ebook-cover.png" alt="Ebook Cover" className="w-48 h-auto shadow-2xl rounded-lg border border-purple-500/50" />,
     content: "Knowledge without action is just entertainment. Your time is decaying. Reclaim the machine.",
     chapterInfo: "STATUS: AWAITING INPUT",
     isCTA: true
@@ -180,26 +209,47 @@ export default function ManualPage() {
                 <p className="text-gray-400 font-mono text-sm mt-1">{slideData.subtitle}</p>
               </motion.div>
 
-              {/* Icon */}
+              {/* Icon OR Image Section */}
               <motion.div 
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 className="flex justify-center mb-8 text-purple-500"
               >
-                <div className="p-6 border border-purple-500/20 rounded-full bg-purple-500/5 shadow-[0_0_30px_rgba(147,51,234,0.2)]">
-                  {slideData.icon}
-                </div>
+                {/* LOGIC: If Slide 0 (Cover) or Slide 9 (Final), show directly. Else show inside circle. */}
+                {(slideData.id === 0 || slideData.id === 9) ? (
+                   <div className="shadow-[0_0_40px_rgba(147,51,234,0.3)]">
+                      {slideData.icon}
+                   </div>
+                ) : (
+                  <div className="p-6 border border-purple-500/20 rounded-full bg-purple-500/5 shadow-[0_0_30px_rgba(147,51,234,0.2)]">
+                    {slideData.icon}
+                  </div>
+                )}
               </motion.div>
 
-              {/* Text */}
+              {/* Text Content with Bullet Logic */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className="mb-8"
               >
-                <p className="text-lg leading-relaxed text-gray-200 border-l-2 border-purple-500 pl-4 font-medium">
-                  {slideData.content}
-                </p>
+                {slideData.content && (
+                  slideData.content.startsWith('•') ? (
+                    /* Bullet Point Rendering for Specs */
+                    <div className="space-y-4">
+                      {slideData.content.split('\n').map((line, idx) => (
+                        <p key={idx} className="text-white font-bold text-sm md:text-base leading-relaxed pl-4 border-l-2 border-purple-500">
+                          {line}
+                        </p>
+                      ))}
+                    </div>
+                  ) : (
+                    /* Standard Paragraph Rendering */
+                    <p className="text-lg leading-relaxed text-gray-200 border-l-2 border-purple-500 pl-4 font-medium">
+                      {slideData.content}
+                    </p>
+                  )
+                )}
               </motion.div>
             </div>
 
@@ -240,7 +290,7 @@ export default function ManualPage() {
                 }}
                 className="block w-full py-6 bg-purple-600 text-white text-center text-xl font-black uppercase rounded-xl tracking-widest hover:bg-white hover:text-purple-900 transition-colors shadow-lg"
               >
-                INSTALL OVERRIDE ($7.50)
+                I NEED THIS ($7.50)
               </motion.a>
               <div className="flex justify-center items-center gap-2 mt-4 text-gray-500 text-xs uppercase tracking-widest">
                  <Lock size={12} /> Secure Checkout via Gumroad
@@ -251,5 +301,4 @@ export default function ManualPage() {
         </motion.div>
       </AnimatePresence>
     </div>
-  );
-}
+  )}
