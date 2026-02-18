@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 
 // --- CONFIGURATION ---
-const GUMROAD_URL = "https://deethinks.gumroad.com/l/CtrlAltGrow"; // 🔴 REPLACE THIS
+const GUMROAD_URL = "https://systmb.gumroad.com/l/SystemBreach"; 
 const THEME_COLOR = "#9333ea"; // Purple-600
 
 // --- SLIDE DATA ---
@@ -183,10 +183,11 @@ export default function ManualPage() {
     enter: (direction: number) => ({
       x: direction > 0 ? 50 : -50,
       opacity: 0,
-      scale: 0.95
+      scale: 0.95,
+      zIndex: 50
     }),
     center: {
-      zIndex: 1,
+      zIndex: 50,
       x: 0,
       opacity: 1,
       scale: 1
@@ -260,7 +261,7 @@ className="absolute w-full max-w-md p-6 z-30 pointer-events-none"
                 <motion.div 
                    initial={{ opacity: 0, scale: 0.9 }} 
                    animate={{ opacity: 1, scale: 1 }}
-                   className="space-y-6 flex flex-col items-center"
+                   className="space-y-4 flex flex-col items-center"
                 >
                   {/* Status Badge */}
                   <div className="inline-block px-4 py-1 rounded-full bg-purple-900/50 border border-purple-500 text-purple-300 text-[10px] font-mono tracking-widest uppercase animate-pulse">
@@ -412,7 +413,8 @@ className="absolute w-full max-w-md p-6 z-30 pointer-events-none"
           {/* CTA BUTTON (Only on last slide) */}
           {slideData.isCTA && (
             <motion.div 
-              className="mt-6 pointer-events-auto"
+              // FIXED: Added 'relative z-50' to force it above the tap zones
+              className="mt-6 pointer-events-auto relative z-50"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
             >
