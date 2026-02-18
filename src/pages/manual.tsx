@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Brain, Zap, Target, Lock, Coins, ChevronRight } from 'lucide-react';
 import Head from 'next/head';
+import Image from 'next/image';
 
 // --- CONFIGURATION ---
 const GUMROAD_URL = "https://deethinks.gumroad.com/l/CtrlAltGrow"; // 🔴 REPLACE THIS
@@ -15,18 +16,30 @@ const SLIDES = [
     phase: "INITIALIZING SYSTEM...",
     title: "SYSTEM BREACH",
     subtitle: "v4.0 // Internal Architect’s Manual",
-    icon: <img src="/ebook-cover.png" alt="Cover" className="w-56 h-auto shadow-2xl rounded-lg border border-purple-500/50" />,
+    // FIXED: Perfect Square Container (256x256px)
+    icon: (
+      <div className="relative w-64 h-96 mx-auto rounded-lg overflow-hidden border border-purple-500/50 shadow-[0_0_40px_rgba(147,51,234,0.3)]">
+        <Image 
+          src="/ebook-cover.png" 
+          alt="System Breach Manual" 
+          width={600} 
+          height={600} 
+          priority 
+          className="object-cover" 
+        />
+      </div>
+    ),
     content: "",
     chapterInfo: "TAP TO DECRYPT SPECIFICATIONS"
-  },
+  }, 
   // --- SLIDE 1: SPECS ---
   {
     id: 1,
     phase: "SYSTEM SPECIFICATIONS",
-    title: "THE BLUEPRINT",
+    title: "YOU GET",
     subtitle: "High-Fidelity Manual",
     icon: <Lock size={64} className="text-purple-500" />,
-    content: "• 20-Chapter Systems Manual\n• Data-Backed Architecture: Grounded in Neurobiology & Case Studies\n• 5-Phase Protocol: From System Audit to War Mode\n• Zero Theory: Pure tactical execution for your internal machine",
+    content: "• 20 SYSTEM CHAPTERS\n• 3 FIELD AUDITS // Bio, Strategy, & Tactics\n• RESEARCH & STUDIES\n• ZERO THEORY // Pure Kinetic Execution",
     chapterInfo: "LOADED // 100% FUNCTIONAL"
   },
   // --- SLIDE 2: MODULE 01 ---
@@ -82,30 +95,63 @@ const SLIDES = [
   // --- SLIDE 7: TOOLS ---
   {
     id: 7,
-    phase: "DEPLOYMENT TOOLS",
-    title: "TRIPLE AUDIT SUITE",
-    subtitle: "7-Day Implementation",
-    icon: <Target size={64} />,
-    content: "• The Biological Shield (Immunity Audit)\n• The Strategic Command (Power Audit)\n• The Tactical Momentum Tracker (Output Audit)",
+    phase: "TACTICAL ARMORY",
+    title: "THE FIELD KIT",
+    subtitle: "Zero-Theory Execution",
+    // CUSTOM VISUAL: Big "3" Badge
+    icon: (
+      <div className="flex flex-col items-center justify-center py-2">
+        <h1 className="text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-purple-500 italic tracking-tighter leading-none pr-2">
+          03
+        </h1>
+        <div className="w-12 h-1 bg-purple-500 rounded-full my-2 shadow-[0_0_10px_#a855f7]" />
+        <p className="text-[9px] font-bold text-gray-400 tracking-[0.3em] uppercase">
+          DEPLOYMENT TOOLS
+        </p>
+      </div>
+    ),
+    content: "• PROTOCOL A: The Bio-Shield // (Immunity Audit)\n• PROTOCOL B: Strategic Command // (Power Audit)\n• PROTOCOL C: Kinetic Tracker // (Velocity Audit)",
     chapterInfo: "v4.0 // BONUS CONTENT"
   },
   // --- SLIDE 8: RESEARCH ---
   {
     id: 8,
-    phase: "RESEARCH LAB",
-    title: "NEURO-ARCHITECTURE",
-    subtitle: "Data-Driven Operating System",
-    icon: <Brain size={64} />,
-    content: "• Built on Stanford & MIT Behavioral Research\n• Zero 'Motivation' // Pure Biological Mechanics\n• 50+ Case Studies on High-Performance Minds",
-    chapterInfo: "v4.0 // SCIENTIFIC AUDIT"
+    phase: "TECHNICAL VALIDATION",
+    title: "THE DATA BACKBONE",
+    subtitle: "Clinical Evidence",
+    // CUSTOM VISUAL: Huge "50+" Badge
+    icon: (
+      <div className="flex flex-col items-center justify-center py-2">
+        <h1 className="text-6xl font-black text-white drop-shadow-[0_0_25px_rgba(147,51,234,0.6)] tracking-tighter leading-none">
+          50+
+        </h1>
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent my-2 opacity-50" />
+        <p className="text-[10px] font-bold text-purple-300 tracking-[0.3em] uppercase animate-pulse">
+          CLINICAL STUDIES
+        </p>
+      </div>
+    ),
+    content: "• Amygdala Hijack (Harvard/Stanford): Research by Dr. Robert Sapolsky.\n• Dopamine Protocols (Stanford/NYU): Data from Dr. Andrew Huberman.\n• Social Contagion (Univ. of Parma): Studies by Dr. Giacomo Rizzolatti.\n• Habit Loops (MIT): Research by Dr. Ann Graybiel.",
+    chapterInfo: "PEER-REVIEWED // 100% VERIFIED"
   },
   // --- SLIDE 9: CTA ---
   {
     id: 9,
     phase: "FINAL OVERRIDE",
-    title: "THE LINE IN THE SAND",
-    subtitle: "System Activation Required",
-    icon: <img src="/ebook-ccover.png" alt="Ebook Cover" className="w-48 h-auto shadow-2xl rounded-lg border border-purple-500/50" />,
+    title: "System Activation Required",
+    // FIXED: Perfect Square Container (256x256px) with stronger glow
+    icon: (
+      <div className="relative w-64 h-64 mx-auto rounded-xl overflow-hidden border-2 border-purple-500 shadow-[0_0_60px_rgba(147,51,234,0.5)]">
+         <Image 
+           src="/ebook-ccover.png" 
+           alt="System Breach Manual" 
+           width={600} 
+           height={600} 
+           priority 
+           className="object-cover" 
+         />
+      </div>
+    ),
     content: "Knowledge without action is just entertainment. Your time is decaying. Reclaim the machine.",
     chapterInfo: "STATUS: AWAITING INPUT",
     isCTA: true
@@ -137,7 +183,7 @@ export default function ManualPage() {
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
+      x: direction > 0 ? 50 : -50,
       opacity: 0,
       scale: 0.95
     }),
@@ -190,7 +236,7 @@ export default function ManualPage() {
       </div>
 
       {/* --- CONTENT --- */}
-      <AnimatePresence initial={false} custom={direction} mode='wait'>
+      <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentSlide}
           custom={direction}
@@ -198,8 +244,8 @@ export default function ManualPage() {
           initial="enter"
           animate="center"
           exit="exit"
-          transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-          className="absolute w-full max-w-md p-6 z-30 pointer-events-none"
+transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+className="absolute w-full max-w-md p-6 z-30 pointer-events-none"
         >
           <div className={`border bg-[#0a0a0a]/95 backdrop-blur-xl p-8 rounded-2xl relative overflow-hidden min-h-[500px] flex flex-col ${slideData.id === 9 ? 'border-purple-500 shadow-[0_0_60px_rgba(147,51,234,0.3)] justify-center items-center text-center' : 'border-purple-500/30 shadow-[0_0_50px_rgba(147,51,234,0.15)] justify-between'}`}>
             
@@ -281,27 +327,70 @@ export default function ManualPage() {
                   </motion.div>
 
                   {/* Text Content */}
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="mb-8"
-                  >
-                    {slideData.content && (
-                      slideData.content.startsWith('•') ? (
-                        <div className="space-y-4">
-                          {slideData.content.split('\n').map((line, idx) => (
-                            <p key={idx} className="text-white font-bold text-sm md:text-base leading-relaxed pl-4 border-l-2 border-purple-500">
-                              {line}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="mb-8"
+              >
+                {slideData.content && (
+                  // --- SPECIAL DESIGN FOR SLIDE 7 (THE FIELD KIT) ---
+                  slideData.id === 7 ? (
+                    <div className="space-y-3">
+                      {slideData.content.split('\n').map((line, idx) => {
+                        // Parsing logic: "• PROTOCOL A: Title // (Subtitle)"
+                        const cleanLine = line.replace('• ', '');
+                        const [label, rest] = cleanLine.split(': ');
+                        const [title, subtitle] = rest ? rest.split(' // ') : [cleanLine, ''];
+
+                        return (
+                          <div 
+                            key={idx} 
+                            className="bg-white/5 border border-purple-500/20 p-4 rounded-xl relative overflow-hidden group hover:bg-white/10 transition-colors"
+                          >
+                            {/* Glowing Left Border */}
+                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-purple-500 shadow-[0_0_15px_#a855f7]" />
+                            
+                            {/* Label (PROTOCOL A) */}
+                            <p className="text-[10px] font-mono text-purple-400 tracking-widest uppercase mb-1 flex items-center gap-2">
+                              <Target size={10} /> {label}
                             </p>
-                          ))}
+                            
+                            {/* Main Title & Subtitle */}
+                            <div className="flex justify-between items-end">
+                              <h3 className="text-white font-bold text-base leading-none">
+                                {title}
+                              </h3>
+                              <span className="text-xs text-gray-500 font-mono">
+                                {subtitle.replace('(', '').replace(')', '')}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ) 
+                  // --- STANDARD BULLET POINTS (FOR OTHER SLIDES) ---
+                  : slideData.content.startsWith('•') ? (
+                    <div className="space-y-4">
+                      {slideData.content.split('\n').map((line, idx) => (
+                        <div key={idx} className="flex gap-3 items-start">
+                           {/* Custom Dot */}
+                           <div className="mt-1.5 min-w-[6px] h-[6px] bg-purple-500 rounded-full shadow-[0_0_8px_#a855f7]" />
+                           <p className="text-gray-200 font-medium text-sm md:text-base leading-relaxed">
+                             {line.replace('• ', '')}
+                           </p>
                         </div>
-                      ) : (
-                        <p className="text-lg leading-relaxed text-gray-200 border-l-2 border-purple-500 pl-4 font-medium">
-                          {slideData.content}
-                        </p>
-                      )
-                    )}
-                  </motion.div>
+                      ))}
+                    </div>
+                  ) 
+                  // --- STANDARD PARAGRAPH ---
+                  : (
+                    <p className="text-lg leading-relaxed text-gray-200 border-l-2 border-purple-500 pl-4 font-medium">
+                      {slideData.content}
+                    </p>
+                  )
+                )}
+              </motion.div>
                 </div>
 
                 {/* Footer */}

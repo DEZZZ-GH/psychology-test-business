@@ -6,7 +6,7 @@ import { ArrowRight, ShieldAlert, CheckCircle, Zap, Flame, Lock } from 'lucide-r
 const RESULTS_DATA: Record<string, any> = {
   'A': {
     title: "The Hijacked Protector",
-    diagnosis: "Your Watchdog (Amygdala) has staged a full coup. It has locked your CEO (Prefrontal Cortex) in the basement. You aren't \"careful\"—you are a high-performance machine being driven by a security guard who is afraid of shadows.",
+    diagnosis: "Your Watchdog (Amygdala) has staged a full coup. It has locked your CEO (Prefrontal Cortex) in the basement. You aren't \"careful\", you are a high-performance machine being driven by a security guard who is afraid of shadows.",
     insight: "Right now, you are burning 90% of your daily energy just trying to stay \"safe.\" This is why you feel exhausted even when you haven't done anything. You are red-lining your engine while the parking brake is on.",
     override: [
       "Chapter 07 (The Watchdog): I show you exactly how your amygdala hijacks your logic and how to \"debug\" the fear response in real-time.",
@@ -30,7 +30,7 @@ const RESULTS_DATA: Record<string, any> = {
     insight: "You are a passenger watching your own life go by. Your basal ganglia handles your habits, and right now, those habits were installed by people who don't care about your success. You are living on 2005 programming in a 2026 world.",
     override: [
       "Chapter 01 (The Architect): We audit the \"Ghost in the Machine\" and identify exactly where your Autopilot is taking you.",
-      "Chapter 08 (The Lab): You will learn how to hack your neurochemistry—Dopamine, Serotonin, and Cortisol—to find the \"On Switch\" for your drive."
+      "Chapter 08 (The Lab): You will learn how to hack your neurochemistry - Dopamine, Serotonin, and Cortisol - to find the \"On Switch\" for your drive."
     ],
     blueprint: "If you don't take the wheel back now, you’ll wake up at 50 and realize you never actually showed up for your own life."
   },
@@ -206,9 +206,6 @@ export default function ResultsPage() {
 >
   INITIATE OVERRIDE SEQUENCE
 </button>
-        <p className="text-center text-gray-500 text-xs mt-3">
-          Instant Digital Access • Secure Payment
-        </p>
       </div>
     </div>
   )
