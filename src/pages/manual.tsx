@@ -96,7 +96,6 @@ const SLIDES = [
   {
     id: 7,
     phase: "TACTICAL ARMORY",
-    title: "THE FIELD KIT",
     subtitle: "Zero-Theory Execution",
     // CUSTOM VISUAL: Big "3" Badge
     icon: (
@@ -117,7 +116,6 @@ const SLIDES = [
   {
     id: 8,
     phase: "TECHNICAL VALIDATION",
-    title: "THE DATA BACKBONE",
     subtitle: "Clinical Evidence",
     // CUSTOM VISUAL: Huge "50+" Badge
     icon: (
@@ -278,10 +276,11 @@ className="absolute w-full max-w-md p-6 z-30 pointer-events-none"
                   </div>
 
                   {/* Title & Copy */}
-                  <div>
-                    <h2 className="text-4xl font-black italic uppercase leading-none text-white mb-4 drop-shadow-[0_0_15px_rgba(147,51,234,0.8)]">
-                      {slideData.title}
-                    </h2>
+<div>
+  {/* CHANGED: text-4xl -> text-2xl */}
+  <h2 className="text-2xl font-black italic uppercase leading-none text-white mb-4 drop-shadow-[0_0_15px_rgba(147,51,234,0.8)]">
+    {slideData.title}
+  </h2>
                     <p className="text-gray-300 text-sm leading-relaxed max-w-xs mx-auto font-medium">
                       "{slideData.content}"
                     </p>
