@@ -204,7 +204,7 @@ export default function ResultsPage() {
   onClick={() => router.push('/manual')} 
   className="block w-full py-5 bg-purple-600 text-white text-center text-xl font-black uppercase rounded-xl shadow-[0_0_30px_rgba(147,51,234,0.4)] hover:scale-[1.02] transition-transform active:scale-95"
 >
-  INITIATE OVERRIDE SEQUENCE
+  HERE
 </button>
       </div>
     </div>
